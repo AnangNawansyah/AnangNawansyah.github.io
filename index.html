@@ -4,10 +4,12 @@
     <meta charset="utf-8" />
     <title>Personal Portfolio Website</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!-- bootstrap -->
     <!-- font awesome -->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <!-- main css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/load.css" />
     <link rel="stylesheet" type="text/css" href="css/skins/color-4.css" />
     <!-- responsive css -->
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
@@ -136,7 +138,7 @@
             <!-- ------sosial link start------ -->
             <div class="social-links">
               <a href="#" class="outer-shadow hover-in-shadow"><i class="fab fa-facebook"></i></a>
-              <a href="#" class="outer-shadow hover-in-shadow"><i class="fab fa-twitter"></i></a>
+              <a href="https://api.whatsapp.com/send?phone=6285270040925" class="outer-shadow hover-in-shadow"><i class="fab fa-whatsapp"></i></a>
               <a href="#" class="outer-shadow hover-in-shadow"><i class="fab fa-instagram"></i></a>
               <a href="#" class="outer-shadow hover-in-shadow"><i class="fab fa-linkedin"></i></a>
             </div>
@@ -206,7 +208,7 @@
               <!-- skills item end -->
               <!-- skills item star -->
               <div class="skills-item">
-                <p>angular</p>
+                <p>CSS</p>
                 <div class="progress inner-shadow">
                   <div class="progress-bar" style="width: calc(80% - 14px)">
                     <span>80%</span>
@@ -408,8 +410,9 @@
           <div class="contact-item">
             <div class="contact-item-inner outer-shadow">
               <i class="fas fa-phone"></i>
-              <span>Phone</span>
-              <p>085159970070</p>
+              <i class="fab fa-whatsapp"></i>
+              <span>Phone/WhatsApp</span>
+              <p>085159970070/085270040925</p>
             </div>
           </div>
           <!-- contact item end -->
@@ -434,28 +437,44 @@
         </div>
         <div class="row">
           <div class="contact-form">
-            <form>
+            <form name="portpolio-contact-form">
               <div class="row">
                 <div class="w-50">
                   <div class="input-group outer-shadow hover-in-shadow">
-                    <input type="text" placeholder="Name" class="input-control" />
+                    <input type="text" placeholder="Name" class="input-control" name="name" />
                   </div>
                   <div class="input-group outer-shadow hover-in-shadow">
-                    <input type="text" placeholder="Email" class="input-control" />
+                    <input type="text" placeholder="Email" class="input-control" name="email" />
                   </div>
                   <div class="input-group outer-shadow hover-in-shadow">
-                    <input type="text" placeholder="Subject" class="input-control" />
+                    <input type="text" placeholder="Phone/WhatsApp" class="input-control" name="phone" />
                   </div>
                 </div>
                 <div class="w-50">
                   <div class="input-group outer-shadow hover-in-shadow">
-                    <textarea class="input-control" placeholder="Massage"></textarea>
+                    <textarea class="input-control" placeholder="Massage" name="massage"></textarea>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="submit-btn">
-                  <button type="Submit" class="btn-1 outer-shadow hover-in-shadow">Send Message</button>
+                  <button type="submit" class="btn-1 outer-shadow hover-in-shadow btn-kirim">Send Message</button>
+                </div>
+                <button type="button d-none" disabled>
+                  <div class="cubes btn-loding">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                  </div>
+                </button>
+                <div class="alret my-alret d-none" role="alert">
+                  <div>An example success alert with an icon</div>
                 </div>
               </div>
             </form>
@@ -489,5 +508,30 @@
     <script src="js/main.js"></script>
     <!-- style switcher js -->
     <script src="js/style-switcher.js"></script>
+    <!-- send goole form -->
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbzWOn5Pk2TWh6SiGjVMvV22Mau7rA2_s26KUP4225H518L8ouX6jFXvLtZehy2bdYN7/exec";
+      const form = document.forms["portpolio-contact-form"];
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoding = document.querySelector(".btn-loding");
+      const myAlert = document.querySelector(".my-alret");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // ketika tombol submit diklik
+        // tampilkan tombol loading, hilangkan tombol kirim
+        btnLoding.classList.toggle(".d-none");
+        btnKirim.classList.toggle(".d-none");
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            btnLoding.classList.toggle(".d-none");
+            btnKirim.classList.toggle(".d-none");
+            myAlert.classList.toggle(".d-none");
+            form.reset();
+            console.log("Success!", response);
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
