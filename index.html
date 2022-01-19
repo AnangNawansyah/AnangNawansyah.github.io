@@ -20,7 +20,16 @@
     <link rel="stylesheet" type="text/css" class="alternate-style" title="color-1" href="css/skins/color-1.css" disabled />
     <link rel="stylesheet" type="text/css" href="css/style-switcher.css" />
   </head>
-  <body>
+  <body class="dark">
+    <!-- preloader start -->
+    <div class="preloader">
+      <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!-- preloader end -->
     <!-- Header Start -->
     <header class="header">
       <div class="container">
@@ -89,18 +98,16 @@
         </div>
         <div class="effect effect-3"></div>
         <div class="effect effect-4"></div>
-        <div class="effect effect-5"></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+        <div class="effect effect-5">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
 
       <!-- effect wrap end -->
       <div class="container">
@@ -458,23 +465,13 @@
               </div>
               <div class="row">
                 <div class="submit-btn">
-                  <button type="submit" class="btn-1 outer-shadow hover-in-shadow btn-kirim">Send Message</button>
-                </div>
-                <button type="button d-none" disabled>
-                  <div class="cubes btn-loding">
-                    <div class="sk-cube sk-cube1"></div>
-                    <div class="sk-cube sk-cube2"></div>
-                    <div class="sk-cube sk-cube3"></div>
-                    <div class="sk-cube sk-cube4"></div>
-                    <div class="sk-cube sk-cube5"></div>
-                    <div class="sk-cube sk-cube6"></div>
-                    <div class="sk-cube sk-cube7"></div>
-                    <div class="sk-cube sk-cube8"></div>
-                    <div class="sk-cube sk-cube9"></div>
-                  </div>
-                </button>
-                <div class="alret my-alret d-none" role="alert">
-                  <div>An example success alert with an icon</div>
+                  <button type="submit" class="btn-kirim btn-1 outer-shadow hover-in-shadow">
+                    <span>Send Message</span>
+                  </button>
+                  <button class="btn-loading btn-1 outer-shadow hover-in-shadow" style="display: none">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Loading...</span>
+                  </button>
                 </div>
               </div>
             </form>
@@ -508,25 +505,26 @@
     <script src="js/main.js"></script>
     <!-- style switcher js -->
     <script src="js/style-switcher.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- alrt sukses -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- send goole form -->
     <script>
       const scriptURL = "https://script.google.com/macros/s/AKfycbzWOn5Pk2TWh6SiGjVMvV22Mau7rA2_s26KUP4225H518L8ouX6jFXvLtZehy2bdYN7/exec";
       const form = document.forms["portpolio-contact-form"];
-      const btnKirim = document.querySelector(".btn-kirim");
-      const btnLoding = document.querySelector(".btn-loding");
-      const myAlert = document.querySelector(".my-alret");
+      const btnkirim = document.querySelector(".btn-kirim");
+      const btnLoding = document.querySelector(".btn-loading");
+      
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        
         // ketika tombol submit diklik
-        // tampilkan tombol loading, hilangkan tombol kirim
-        btnLoding.classList.toggle(".d-none");
-        btnKirim.classList.toggle(".d-none");
+        // tampilkan tombol loading, hilangkan tombol kiri
+
         fetch(scriptURL, { method: "POST", body: new FormData(form) })
+      
           .then((response) => {
-            btnLoding.classList.toggle(".d-none");
-            btnKirim.classList.toggle(".d-none");
-            myAlert.classList.toggle(".d-none");
             form.reset();
             console.log("Success!", response);
           })
